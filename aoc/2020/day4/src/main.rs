@@ -1,6 +1,5 @@
 use std::fs;
 use std::vec::Vec;
-use regex::Regex;
 
 const FILENAME: &str = "input";
 
@@ -12,6 +11,16 @@ const LIST_OF_PATTERNS: [&str; 7] = [
     " hcl:",
     " ecl:",
     " pid:",
+];
+
+const ALLOWED_ECLS: [&str; 7] = [
+    "amb",
+    "blu",
+    "brn",
+    "gry",
+    "grn",
+    "hzl",
+    "oth",
 ];
 
 fn eval1(s: &String) -> bool {
@@ -36,14 +45,16 @@ fn solve1(vec: &Vec<String>) -> i32 {
 fn eval2_kv(k: &str, v: &str) -> bool {
     match k {
         "byr" => {
+            // TODO: Refactor me w/ unwrap_or once I know how to implement
+            // fmap on results
             return match v.parse::<i32>() {
-                Ok(v) => v >= 1920 && v <= 2002,
+                Ok(v) => 1920 <= v && v <= 2002,
                 Err(_) => false,
             }
         },
         "iyr" => {
             return match v.parse::<i32>() {
-                Ok(v) => v >= 2010 && v <= 2020,
+                Ok(v) => 2010 <= v && v <= 2020,
                 Err(_) => false,
             }
         },
@@ -56,23 +67,53 @@ fn eval2_kv(k: &str, v: &str) -> bool {
         "hgt" => {
             // TODO: Refactor me
             let v = v.chars().collect::<Vec<char>>();
-            return match &v[v.len()-2..].into_iter().collect::<String>()[..] {
-                "in" => {
-                    // TODO: Next: unwrap_or or sth for all matches
-                    v[..v.len()-2]
-                        .into_iter()
-                        .collect::<String>()
-                        .parse::<i32>
-                }
-                "cm" => false,
+            let head = v[..v.len()-2].into_iter().collect::<String>()
+                .parse::<i32>().unwrap_or(0);
+            let tail = &v[v.len()-2..].into_iter().collect::<String>()[..];
+
+            return match tail {
+                "in" => return 59 <= head && head <= 76,
+                "cm" => return 150 <= head && head <= 193,
                 _ => false,
             }
         },
-        "hcl" => {return false;},
-        "ecl" => {return false;},
-        "pid" => {return false;},
-        // cid
-        _ => {return true;}
+        "hcl" => {
+            let v: Vec<char> = v.chars().collect();
+            if v.len() != 7 {
+                return false;
+            }
+            if *v.first().unwrap() != '#' {
+                return false;
+            }
+            for c in &v[1..] {
+                let i = *c as u32;
+                if !(
+                    (48 <= i && i <= 57) ||
+                    (97 <= i && i <= 102)
+                    ) {
+                    return false;
+                }
+            }
+            return true;
+        },
+        "ecl" => {
+            return ALLOWED_ECLS.contains(&v);
+        },
+        "pid" => {
+            let v: Vec<char> = v.chars().collect();
+            if v.len() != 9 {
+                return false;
+            }
+            for c in v{
+                let i = c as i32;
+                if !(48 <= i && i <= 57) {
+                    return false;
+                }
+            }
+            return true;
+        },
+        "cid" => {return true;}
+        _ => {panic!("{}:{}", k,v);}
     }
 }
 
@@ -81,7 +122,6 @@ fn eval2(v: &Vec<String>) -> bool{
         let kv: Vec<&str> = kv.split(':').collect();
         let k = kv[0];
         let v = kv[1];
-        println!("{} {}", k, v);
         if !eval2_kv(k,v) {
             return false;
         }
