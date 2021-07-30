@@ -19,8 +19,12 @@ impl Seat {
         let dxhalf = (maxx - minx) / 2;
         return match s[0] {
             c => Seat::solve(c, minx, minx+dxhalf, &s[1..]),
-            _ => Seat::solve(c, maxx-dxhalf, maxx, &s[1..]),
+            _ => Seat::solve(c, maxx-dxhalf, maxx, &s[1..])
         }
+        //if s[0] == c {
+        //    return Seat::solve(c, minx, minx+dxhalf, &s[1..]);
+        //}
+        //Seat::solve(c, maxx-dxhalf, maxx, &s[1..])
     }
 
     fn calc_row(s: &[char]) -> usize {
