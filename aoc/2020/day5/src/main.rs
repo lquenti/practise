@@ -4,6 +4,7 @@ use std::vec::Vec;
 
 const FILENAME: &str = "input";
 
+#[derive(Clone)]
 struct Seat {
     row: usize,
     col: usize,
@@ -44,13 +45,29 @@ impl Seat {
     }
 }
 
+fn find_my_seat(v: &Vec<Seat>) -> usize {
+    let mut v: Vec<Seat> = v.to_vec();
+    v.sort_by(|a,b| a.seat_id().cmp(&b.seat_id()));
+    let mut i = 0;
+    while i < v.len()-1 {
+        if v[i+1].seat_id() - v[i].seat_id() == 2 {
+            return v[i].seat_id() + 1;
+        }
+        i+=1;
+    }
+    0
+}
+
 fn main() {
-    let res1:usize = fs::read_to_string(FILENAME)
+    let v: Vec<Seat> = fs::read_to_string(FILENAME)
         .expect("Something went wrong reading the file")
         .split("\n")
         .map(|x| x.trim())
         .filter(|x| *x != "")
         .map(|x| Seat::from_str(x))
-        .fold(0, |xs, x| max(xs, x.seat_id()));
+        .collect();
+    let res1: usize = v.iter().fold(0, |xs, x| max(xs, x.seat_id()));
     println!("res1: {}", res1);
+    let res2: usize = find_my_seat(&v);
+    println!("res2: {}", res2);
 }
