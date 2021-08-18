@@ -1,3 +1,4 @@
 # Practise makes perfect
 
-This is my way to keep me publicly accountable. Currently for my 100daysofcode, but lets see where it goes.
+- [Advent of Code to learn Rust](./aoc)
+- [Mathematical Oriented Programming in Python](./mop)
