@@ -3,6 +3,7 @@
 using namespace std;
 #define ll long long
 
+// http://www.usaco.org/index.php?page=viewproblem2&cpid=891
 int main() {
     freopen("shell.in", "r", stdin);
     freopen("shell.out", "w", stdout);
