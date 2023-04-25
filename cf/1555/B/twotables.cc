@@ -2,6 +2,7 @@
 using namespace std;
 #define ll long long
 
+// https://codeforces.com/problemset/problem/1555/B
 int main() {
     int t;
     long W, H, x_1, y_1, x_2, y_2, w, h;
