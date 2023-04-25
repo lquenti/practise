@@ -2,11 +2,11 @@
 using namespace std;
 
 struct Line {
-    long l,r;
+    long long l,r;
 };
 
 struct Rect {
-    long lx, ly, ux, uy;
+    long long lx, ly, ux, uy;
 };
 
 bool intersect_line(Line a, Line b) {
@@ -21,17 +21,21 @@ bool intersect_rect(Rect a, Rect b) {
 }
 
 // int(w,b1) + int(w, b2) - int(b1, b2, w) >= w.size() dann completely covered
-long inter_area(Rect a, Rect b) {
+long long inter_area(Rect a, Rect b) {
     if (!intersect_rect(a,b)) return 0;
     return (min(a.ux, b.ux) - max(a.lx, b.lx))
         * (min(a.uy, b.uy) - max(a.ly, b.ly));
 }
-long inter_area3(Rect a, Rect b, Rect c) {
+long long inter_area3(Rect a, Rect b, Rect c) {
     if (!intersect_rect(a,b)) return 0;
     if (!intersect_rect(a,c)) return 0;
     if (!intersect_rect(b,c)) return 0;
     return (min(min(a.ux, b.ux),c.ux) - max(max(a.lx, b.lx), c.lx))
         * (min(min(a.uy, b.uy),c.uy) - max(max(a.ly, b.ly),c.ly));
+}
+
+long long rect_size(Rect a) {
+    return (a.ux-a.lx) * (a.uy-a.ly);
 }
 
 // https://codeforces.com/contest/1216/problem/C
