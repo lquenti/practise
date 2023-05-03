@@ -8,6 +8,9 @@ using namespace std;
 #define vi vector<int>
 #define vll vector<ll>
 
+#define P(X) cerr << #X << "=" << X << "; ";
+#define NL cerr << endl << endl
+
 void solve() {
   freopen(PROBLEM ".in", "r", stdin);
   freopen(PROBLEM ".out", "w", stdout);
