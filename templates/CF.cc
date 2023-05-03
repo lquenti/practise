@@ -1,16 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define PROBLEM "<PROBLEMNAME HERE>"
-
 #define ll long long
 #define pb push_back
 #define vi vector<int>
 #define vll vector<ll>
 
+
 void solve() {
-  freopen(PROBLEM ".in", "r", stdin);
-  freopen(PROBLEM ".out", "w", stdout);
   // DO THE SOLVING HERE
 }
 
