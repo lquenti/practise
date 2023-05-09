@@ -11,6 +11,7 @@ using namespace std;
 #define P(X) cerr << #X << "=" << X << "; ";
 #define NL cerr << endl << endl
 
+// http://www.usaco.org/index.php?page=viewproblem2&cpid=664
 void solve() {
     freopen(PROBLEM ".in", "r", stdin);
     freopen(PROBLEM ".out", "w", stdout);
