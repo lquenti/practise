@@ -75,7 +75,7 @@ def test_vg_memcheck():
 
 if __name__ == "__main__":
 
-    ret = pytest.main([__file__, "-s", "-vv", "-x", "--failed-first"])
+    ret = pytest.main([__file__, "-s", "-vv","--failed-first"])
 
 
 
