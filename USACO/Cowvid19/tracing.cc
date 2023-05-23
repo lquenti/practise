@@ -67,16 +67,22 @@ void solve() {
                 // interesting case 1 : cow a infectious and cow b healthy
                 if (state[r.cow_a] > 1) {
                     if (state[r.cow_b] == 0) {
-                        state[r.cow_b] = k_cand + 1;
+                        state[r.cow_b] = k_cand + 2;
                     }
-                    state[r.cow_a]--;
                 }
 
                 // interesting case 2 : cow b infectious and cow a healthy
-                if (state[r.cow_b] > 1) {
+                else if (state[r.cow_b] > 1) {
                     if (state[r.cow_a] == 0) {
-                        state[r.cow_a] = k_cand + 1;
+                        state[r.cow_a] = k_cand + 2; // +2 because of decrement down below
                     }
+                }
+
+                // decrement infectiousness-counter
+                if (state[r.cow_a] > 1) {
+                    state[r.cow_a]--;
+                }
+                if (state[r.cow_b] > 1) {
                     state[r.cow_b]--;
                 }
             }
