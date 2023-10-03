@@ -31,37 +31,39 @@ void solve_single() {
     int innermax {1};
     int i {rightmost};
     while (i < n-1) {
-        /* early prune if it is not better than our current best */
         int j = i + 1;
         i++;
-        if (signs[j] <= signs[leftmost] &&  signs[j] <= signs[innermax] && signs[j] <= signs[rightmost]) {
-            continue;
-        }
 
-        /* can we throw out leftmost */
         int yeet_left = f(signs, innermax, rightmost, j);
         int yeet_inner = f(signs, leftmost, rightmost, j);
         int yeet_right = f(signs, leftmost, innermax, j);
-        //int yeet_j = f(signs, leftmost, innermax, rightmost);
+        int yeet_j = f(signs, leftmost, innermax, rightmost);
 
-        if (yeet_left >= yeet_inner && yeet_left >= yeet_right) {
+        if (yeet_left >= yeet_inner && yeet_left >= yeet_right && yeet_left >= yeet_j) {
             /* best case is without left, so throw it out */
             leftmost = innermax;
             innermax = rightmost;
             rightmost = j;
             continue;
-        } else if (yeet_inner >= yeet_left && yeet_inner >= yeet_right) {
+        } else if (yeet_inner >= yeet_left && yeet_inner >= yeet_right && yeet_inner >= yeet_j) {
             /* best case is without inner */
             innermax = rightmost;
             rightmost = j;
             continue;
-        } else {
+        } else if (yeet_right >= yeet_left && yeet_right >= yeet_inner && yeet_right >= yeet_j){
             /* best case is we do not use right */
             rightmost = j;
+            continue;
+        } else {
+            /* best case is without j */
             continue;
         }
 
     }
+
+    cout << leftmost+1 << " " << signs[leftmost] << endl;
+    cout << innermax+1 << " " << signs[innermax] << endl;
+    cout << rightmost+1 << " " << signs[rightmost] << endl;
 
     cout << f(signs, leftmost, innermax, rightmost) << endl;
 }
