@@ -30,18 +30,24 @@ fn main() {
         }
     );
 
-    let mut r = 1.0;
+    let mut r = 0.5;
     while !window.should_close() {
         if window.get_key(glfw::Key::Escape) == glfw::Action::Press {
             window.set_should_close(true);
+        }
+        if window.get_key(glfw::Key::Left) == glfw::Action::Press {
+            r += 0.98;
+            r %= 1.0;
+        }
+        else if window.get_key(glfw::Key::Right) == glfw::Action::Press {
+            r += 0.02;
+            r %= 1.0;
         }
 
         unsafe {
             gl::ClearColor(r, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
         }
-        r += 0.02;
-        r %= 1.0;
 
         window.swap_buffers();
         glfw.poll_events();
