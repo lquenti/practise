@@ -3,6 +3,7 @@ import sys
 def solve01():
     with open(sys.argv[1], "r") as fp:
         lines = fp.readlines()
+        lines = [line.strip() for line in lines]
 
     ret = 0
     number_offsets_found = set()
