@@ -1,5 +1,5 @@
 def solve1():
-    with open("./01.input") as fp:
+    with open("./input_01.txt") as fp:
         lines = fp.readlines()
     
     sum = 0
@@ -45,7 +45,7 @@ def solve2():
 
         
 
-    with open("./01.input") as fp:
+    with open("./input_01.txt") as fp:
         lines = fp.readlines()
     
     sum = 0
@@ -56,4 +56,5 @@ def solve2():
     
     print(sum)
 
+solve1()
 solve2()

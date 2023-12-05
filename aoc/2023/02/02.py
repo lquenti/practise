@@ -3,7 +3,7 @@ GREENS = 13
 BLUES = 14
 
 def solve01():
-    with open("./02.input", 'r') as fp:
+    with open("./input_02.txt", 'r') as fp:
         lines = fp.readlines()
     
     ret = 0
@@ -35,7 +35,7 @@ def solve01():
     print(ret)
 
 def solve02():
-    with open("./02.input", 'r') as fp:
+    with open("./input_02.txt", 'r') as fp:
         lines = fp.readlines()
     
     ret = 0
@@ -67,4 +67,5 @@ def solve02():
         ret += minimal_blues * minimal_greens * minimal_reds
     print(ret)
 
+solve01()
 solve02()
