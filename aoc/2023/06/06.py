@@ -21,4 +21,21 @@ def solve01():
     
     print(ret)
 
+def solve02():
+    with open(sys.argv[1], "r") as fp:
+        time, distance = fp.readlines()
+
+    # parse
+    allowed_time = int(time.split(":")[1].replace(" ", "").strip())
+    previous_best = int(distance.split(":")[1].replace(" ", "").strip())
+
+    ways_to_beat = 0
+    for holding_time in range(0, allowed_time+1):
+        distance = (allowed_time-holding_time) * holding_time
+        if distance > previous_best:
+            ways_to_beat += 1
+    print(ways_to_beat)
+
+
 solve01()
+solve02()
