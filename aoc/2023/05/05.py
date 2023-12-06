@@ -51,9 +51,6 @@ def solve02():
     seeds_str = seeds_str.split(":")[1]
     seed_pairs = [int(x) for x in seeds_str.split(" ") if x.strip() != ""]
     seed_pairs = [*zip(seed_pairs[::2], seed_pairs[1::2])]
-    seeds = []
-    for (begin, length) in seed_pairs:
-        seeds.extend([*range(begin, begin+length)])
 
     # extract maps
     def extract_map(m_str):
@@ -77,9 +74,15 @@ def solve02():
         # not found, thus `id`
         return x
 
-    for m in maps:
-        seeds = [eval_map(m, x) for x in seeds]
-    print(min(seeds))
+    current_best = 999999999999999
+    for (begin, length) in seed_pairs:
+        for seed in range(begin, begin+length):
+            x = seed
+            for m in maps:
+                x = eval_map(m,x)
+            if x < current_best:
+                current_best = x
+    print(current_best)
 
 solve01()
 solve02()
