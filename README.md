@@ -1,0 +1,3 @@
+# Some CP practise...
+
+Mainly as pair programming with Julian, thus currently on hold
